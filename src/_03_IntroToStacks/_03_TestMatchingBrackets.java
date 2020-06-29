@@ -17,34 +17,48 @@ public class _03_TestMatchingBrackets {
 		assertFalse(doBracketsMatch("{{}"));
 		assertFalse(doBracketsMatch("}{"));
 	}
-
-	// USE A STACK TO COMPLETE THE METHOD FOR CHECKING IF EVERY OPENING BRACKET HAS A MATCHING CLOSING BRACKET
+	Stack<Character> stack = new Stack<Character>();
+	
+	// USE A STACK TO COMPLETE THE METHOD FOR CHECKING IF EVERY OPENING BRACKET HAS
+	// A MATCHING CLOSING BRACKET
 	private boolean doBracketsMatch(String brackets) {
-		
-		//1. Use a for loop to iterate through your brackets String 
+		boolean returnVar = true;
+		// 1. Use a for loop to iterate through your brackets String
+		for (int i = 0; i < brackets.length(); i++) {
+			// 2. If the current character is an '{'
+			if (brackets.charAt(i)=='{')  {
+				stack.push('{');
+			}
+			else if(brackets.charAt(i)=='}') {
+				if (stack.isEmpty()) {
+					returnVar = false;
+					break;
+				}
+				stack.pop();
+			}
+			
+				// 3. Push an '{' onto the stack
 
-    			//2.  If the current character is an '{'
+				// 4. else if the character is a '}'
 
-        			//3.  Push an '{' onto the stack 
+				// 6. if the stack is empty (i.e. there is no matching opening bracket)
 
-    			//4.  else if the character is a '}'
+				// 7. return false
 
-        			//6.  if the stack is empty (i.e. there is no matching opening bracket)
+				// 5. Pop a character from the stack
 
-            				//7.  return false 
+				// 8. if the stack is not empty (i.e. there were too many opening brackets)
 
-        			//5.  Pop a character from the stack
+				// 9. return false
 
+				// 10. else (i.e. everything matched correctly)
 
-		//8.  if the stack is not empty (i.e. there were too many opening brackets)
-
-    			//9. return false 
-
-		//10. else (i.e. everything matched correctly)
-
-    			//11. return true 
-			return true;
-		
+				// 11. return true	
+		}
+		if (!stack.isEmpty()) {
+			returnVar = false;
+		}
+		return returnVar;
 	}
 
 }
