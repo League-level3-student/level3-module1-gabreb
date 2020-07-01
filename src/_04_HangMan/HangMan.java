@@ -16,11 +16,11 @@ public class HangMan implements KeyListener {
 	JLabel label = new JLabel();
 	String z2 = "                                            ";
 	String z = "";
-	int lives = 10;
+	int lives = 16;
 	int numberOfTimesPlayed = 1;
-
+	boolean match = false;
+	static HangMan man = new HangMan();
 	public static void main(String[] args) {
-		HangMan man = new HangMan();
 		man.run();
 	}
 
@@ -46,8 +46,9 @@ public class HangMan implements KeyListener {
 		}
 		label.setText(z2 + z);
 		frame.pack();
-		JOptionPane.showMessageDialog(null, "Guess the word. You have 10 lives.");
-	}
+		JOptionPane.showMessageDialog(null, "Guess the word. You have 16 lives.");
+		}
+	
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -62,6 +63,7 @@ public class HangMan implements KeyListener {
 			if (r == st.charAt(a)) {
 				z = z.substring(0, a) + r + z.substring(a + 1, z.length());
 				label.setText(z2 + z);
+				match = true;
 				if (!z.contains("_")) {
 					JOptionPane.showMessageDialog(null, "Yay you solved the word: " + st);
 					if (stack.size() >= 1) {
@@ -76,15 +78,37 @@ public class HangMan implements KeyListener {
 							}
 							label.setText(z2 + z);
 							frame.pack();
-							JOptionPane.showMessageDialog(null, "Guess the word. You have 10 lives.");
+							lives = 16;
+							JOptionPane.showMessageDialog(null, "Guess the word. You have 16 lives.");
+						}
+						else {
+							System.exit(0);
 						}
 					}
 					else {
 						System.exit(0);
 					}
+					
 				}
 			}
 		}
+		if (!match) {
+			lives = lives - 1;
+			System.out.println("You have + " + lives + "remaining! Use them well!");
+			if (lives == 0) {
+				JOptionPane.showMessageDialog(null, "Game Over!");
+				JOptionPane.showMessageDialog(null, "You couldn't guess the word, " + st + ", you pathetic baboon!");
+				String loser = JOptionPane.showInputDialog(null, "Would you like to play again?");
+				if (loser.equalsIgnoreCase("yes")||loser.equalsIgnoreCase("sure")) {
+					lives = 16;
+					frame.dispose();
+					label.setText("");
+					z = "";
+					man.run();
+				}
+			}
+		}
+		match = false;
 	}
 
 	@Override
