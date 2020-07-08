@@ -1,5 +1,6 @@
 package _03_IntroToStacks;
 
+
 import java.util.Random;
 import java.util.Stack;
 
@@ -10,6 +11,7 @@ public class _01_IntroToStack {
 		//1. Create a Stack of Doubles
 		//   Don't forget to import the Stack class
 		Stack<Double> d = new Stack<Double>();
+	
 		//2. Use a loop to push 100 random doubles between 0 and 100 to the Stack.
 		for (int i = 0; i < 100; i++) {
 			Double ray = new Random().nextDouble()*100;
